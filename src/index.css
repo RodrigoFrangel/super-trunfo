@@ -1,13 +1,61 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  background-color: #4D935E;
+  font-family: 'Nunito', sans-serif;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+form {
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: black 4px 4px 12px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 30px;
+  margin: 20px auto;
+  max-width: 25%;
+}
+
+h2 {
+  margin-bottom: 60px;
+}
+
+label {
+  font-weight: 700;
+}
+
+#name-input, #description-input, #rare-input {
+  border: none;
+  background: transparent;
+  border-bottom: 1px solid black;
+  width: 100%;
+  margin-top: 15px;
+}
+
+#attr1-input, #attr2-input, #attr3-input {
+  margin-left: 15px;
+  padding: 7px;
+  width: 80%;
+  box-sizing: border-box;
+}
+
+#image-input {
+  margin-left: 15px;
+  padding: 7px;
+  width: 77%;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #003be5;
+  border: none;
+  border-radius: 3px;
+  color: white;
+  margin: 5px 0;
+  max-width: min-content;
+  padding: 10px 30px;
+  transition: 200ms;
+}
+
+button:hover {
+  background-color: #0066ff;
+  cursor: pointer;
 }
