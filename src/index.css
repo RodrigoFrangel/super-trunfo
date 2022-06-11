@@ -1,21 +1,37 @@
 body {
-  background-color: #4D935E;
+  background-color: #134b3a;
   font-family: 'Nunito', sans-serif;
+  margin: 0;
+}
+
+#header {
+  background-color: #134b3a;
+  text-align: center;
+  color: white;
+}
+
+#main-content {
+  display: flex;
+}
+
+#form-title {
+  text-align: center;
+}
+
+#add-card {
+  background-color: white;
+  width: 50%;
 }
 
 form {
   background-color: white;
   border-radius: 15px;
-  box-shadow: black 4px 4px 12px;
+  box-shadow: rgba(0, 0, 0, 0.150) 4px 4px 12px;
   display: flex;
   flex-direction: column;
   padding: 10px 30px;
   margin: 20px auto;
-  max-width: 25%;
-}
-
-h2 {
-  margin-bottom: 60px;
+  max-width: 50%;
 }
 
 label {
@@ -23,11 +39,12 @@ label {
 }
 
 #name-input, #description-input, #rare-input {
-  border: none;
   background: transparent;
+  border: none;
   border-bottom: 1px solid black;
-  width: 100%;
   margin-top: 15px;
+  padding: 5px;
+  width: 100%;
 }
 
 #attr1-input, #attr2-input, #attr3-input {
@@ -58,4 +75,30 @@ button {
 button:hover {
   background-color: #0066ff;
   cursor: pointer;
+}
+
+#card-title {
+  color: white;
+  text-align: center;
+}
+
+#preview-card {
+  background-color: #0a2e23;
+  width: 50%;
+}
+
+#name-card {
+  color: white;
+}
+
+img {
+  width: 360px;
+}
+
+#description-card {
+  color: white;
+}
+
+#attr1-card, #attr2-card, #attr3-card {
+  color: white;
 }
