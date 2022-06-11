@@ -7,9 +7,9 @@ class App extends React.Component {
     cardName: '',
     cardDescription: '',
     cardImage: '',
-    cardAttr1: '',
-    cardAttr2: '',
-    cardAttr3: '',
+    cardAttr1: '0', // precisa ser uma string
+    cardAttr2: '0', // para depois ser convertido
+    cardAttr3: '0', // em um tipo number
     cardRare: '',
     cardTrunfo: false,
   };
@@ -30,6 +30,23 @@ class App extends React.Component {
       cardImage,
     } = this.state;
 
+    const attrInput1 = Number(cardAttr1);
+    const attrInput2 = Number(cardAttr2);
+    const attrInput3 = Number(cardAttr3);
+    const allAttrInputs = (attrInput1 + attrInput2 + attrInput3);
+
+    const buttonDemands = cardName !== ''
+    && cardDescription !== ''
+    && cardImage !== ''
+    && cardRare !== ''
+    && cardAttr1.length > 0
+    && cardAttr2.length > 0
+    && cardAttr3.length > 0
+    && cardAttr1 <= '90' && cardAttr1 >= '0' // precisa ser uma string
+    && cardAttr2 <= '90' && cardAttr2 >= '0' // caso contrário, não passa
+    && cardAttr3 <= '90' && cardAttr3 >= '0' // (provavelmente por causa da validação)
+    && allAttrInputs <= '210';
+
     return (
       <section>
         <h1 id="header">TRYUNFO</h1>
@@ -46,6 +63,7 @@ class App extends React.Component {
               cardRare={ cardRare }
               cardTrunfo={ cardTrunfo }
               onInputChange={ this.handleChange }
+              isSaveButtonDisabled={ !buttonDemands } // se não atender as demandas, botão fica desativado
             />
           </section>
           <section id="preview-card">
