@@ -20,6 +20,19 @@ class App extends React.Component {
     this.setState({ [event.target.name]: event.target.value });
   }
 
+  // se a função não for chamada aqui, requisito 6 falha :(
+  resetState = () => {
+    this.setState({
+      cardName: '',
+      cardDescription: '',
+      cardImage: '',
+      cardAttr1: '0',
+      cardAttr2: '0',
+      cardAttr3: '0',
+      cardRare: 'normal',
+    });
+  }
+
   // funçãozinha para salvar as cartas
   saveTrunfoCards = () => {
     const {
@@ -56,17 +69,7 @@ class App extends React.Component {
       savedCards: trunfoCardsList,
     });
 
-    this.resetState = () => {
-      this.setState({
-        cardName: '',
-        cardDescription: '',
-        cardImage: '',
-        cardAttr1: '0',
-        cardAttr2: '0',
-        cardAttr3: '0',
-        cardRare: 'Normal',
-      });
-    };
+    this.resetState();
   }
 
   render() {
@@ -80,6 +83,7 @@ class App extends React.Component {
       cardAttr3,
       cardImage,
       hasTrunfo,
+      savedCards,
     } = this.state;
 
     const attrInput1 = Number(cardAttr1);
@@ -133,6 +137,19 @@ class App extends React.Component {
               cardTrunfo={ cardTrunfo }
             />
           </section>
+        </section>
+        <section id="card-list">
+          {savedCards.map((savedCard, keyProp) => (<Card
+            cardName={ savedCard.cardName }
+            cardImage={ savedCard.cardImage }
+            cardDescription={ savedCard.cardDescription }
+            cardAttr1={ savedCard.cardAttr1 }
+            cardAttr2={ savedCard.cardAttr2 }
+            cardAttr3={ savedCard.cardAttr3 }
+            cardRare={ savedCard.cardRare }
+            cardTrunfo={ savedCard.cardTrunfo }
+            key={ keyProp }
+          />))}
         </section>
       </section>
     );

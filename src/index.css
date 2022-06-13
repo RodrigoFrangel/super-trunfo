@@ -6,8 +6,8 @@ body {
 
 #header {
   background-color: #134b3a;
-  text-align: center;
   color: white;
+  text-align: center;
 }
 
 #main-content {
@@ -29,9 +29,9 @@ form {
   box-shadow: rgba(0, 0, 0, 0.150) 4px 4px 12px;
   display: flex;
   flex-direction: column;
-  padding: 10px 30px;
   margin: 20px auto;
   max-width: 50%;
+  padding: 10px 30px;
 }
 
 label {
@@ -48,17 +48,17 @@ label {
 }
 
 #attr1-input, #attr2-input, #attr3-input {
+  box-sizing: border-box;
   margin-left: 15px;
   padding: 7px;
   width: 80%;
-  box-sizing: border-box;
 }
 
 #image-input {
+  box-sizing: border-box;
   margin-left: 15px;
   padding: 7px;
   width: 77%;
-  box-sizing: border-box;
 }
 
 button {
@@ -88,68 +88,117 @@ button:active {
 }
 
 #preview-card {
+  align-items: center;
   background-color: #0a2e23;
-  width: 50%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  width: 50%;
 }
 
 #card-preview {
-  /* border: red solid; */
   background-color: white;
   border-radius: 5px;
-  padding: 0 15px;
+  box-shadow: rgba(0, 0, 0, 0.5) 0 0 8px;
+  padding: 7px;
   text-align: center;
-  width: 400px;
+  width: 300px;
+}
+
+#main-info {
+  align-items: center;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
 
 #name-card {
-  color: white;
   background-color: #0a2e23;
-  border-radius: 5px;
+  border-radius: 4px 4px 0 0;
+  box-sizing: border-box;
+  color: white;
+  margin: 0;
+  padding: 5px;
   text-align: center;
+  width: 100%;
 }
 
 img {
-  width: 360px;
+  box-sizing: border-box;
+  margin: 0;
+  width: 100%;  
 }
 
 #description-card {
   color: white;
   background-color: #134b3a;
-  border-radius: 5px;
-  padding: 10px;
+  border-radius: 0 0 4px 4px;
+  box-sizing: border-box;
+  padding: 7px;
+  margin: 0;
+  width: 100%;
 }
 
-#attr1-card, #attr2-card, #attr3-card {
-  background-color: rgb(221, 221, 221);
+#attributes {
+  background-color: rgb(245, 245, 245);
   border-radius: 5px;
-  display: inline;
-  margin: 10px;
-  padding: 5px 10px;
-  width: fit-content;
+  box-shadow: rgb(201, 201, 201) 0 0 5px;
+  display: flex;
+  justify-content: space-around;
+  margin: 5px 0;
+  padding: 7px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.attr {
+  box-sizing: border-box;
+  padding: 0 5px;
+  width: 30%;
+}
+
+.attr-title {
+  font-weight: 700;
+  margin: 0;
+}
+
+.attr-card {
+  background-color: #0c4232;
+  border-radius: 5px;
+  color: white;
+  margin: 0;
+  padding: 5px;
+}
+
+#other-info {
+  background-color: darkslategrey;
+  border-radius: 5px;
+  box-shadow: rgb(201, 201, 201) 0 0 5px;
+  display: flex;
+  justify-content: space-around;
+  margin: 0;
 }
 
 #rare-card {
-  background-color: rgb(238, 222, 0);
+  background-color: #9dca56;
   border: solid black 2px;
-  border-radius: 50px;
+  border-radius: 5px;
   font-weight: 700;
-  margin: 20px auto;
   padding: 5px 20px;
-  text-align: center;
   width: 100px;
 }
 
 #trunfo-card {
-  background-color: rgb(0, 52, 223);
+  background-color: #3f62c2;
   border: solid black 2px;
-  border-radius: 50px;
+  border-radius: 5px;
   color: white;
   font-weight: 700;
-  margin: 20px auto;
   padding: 5px 20px;
-  text-align: center;
   width: 100px;
+}
+
+
+#card-list {
+  background-color: rgb(243, 243, 243);
+  padding: 50px 80px;
 }
