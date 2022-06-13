@@ -12,10 +12,61 @@ class App extends React.Component {
     cardAttr3: '0', // em um tipo number
     cardRare: '',
     cardTrunfo: false,
-  };
+    hasTrunfo: false,
+    savedCards: [], // vamos armazenar todas cartas? vamoooss!
+  }
 
   handleChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
+  }
+
+  // funçãozinha para salvar as cartas
+  saveTrunfoCards = () => {
+    const {
+      cardName,
+      cardDescription,
+      cardImage,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardRare,
+      cardTrunfo,
+      savedCards,
+    } = this.state;
+
+    if (cardTrunfo) {
+      this.setState({ hasTrunfo: true });
+    }
+
+    const newCard = {
+      cardName,
+      cardDescription,
+      cardImage,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardRare,
+      cardTrunfo,
+    };
+
+    const trunfoCardsList = savedCards;
+    trunfoCardsList.push(newCard);
+
+    this.setState({
+      savedCards: trunfoCardsList,
+    });
+
+    this.resetState = () => {
+      this.setState({
+        cardName: '',
+        cardDescription: '',
+        cardImage: '',
+        cardAttr1: '0',
+        cardAttr2: '0',
+        cardAttr3: '0',
+        cardRare: 'Normal',
+      });
+    };
   }
 
   render() {
@@ -28,6 +79,7 @@ class App extends React.Component {
       cardAttr2,
       cardAttr3,
       cardImage,
+      hasTrunfo,
     } = this.state;
 
     const attrInput1 = Number(cardAttr1);
@@ -62,8 +114,10 @@ class App extends React.Component {
               cardImage={ cardImage }
               cardRare={ cardRare }
               cardTrunfo={ cardTrunfo }
+              hasTrunfo={ hasTrunfo }
               onInputChange={ this.handleChange }
               isSaveButtonDisabled={ !buttonDemands } // se não atender as demandas, botão fica desativado
+              onSaveButtonClick={ this.saveTrunfoCards }
             />
           </section>
           <section id="preview-card">

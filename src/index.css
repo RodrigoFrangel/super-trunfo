@@ -66,15 +66,20 @@ button {
   border: none;
   border-radius: 3px;
   color: white;
-  margin: 5px 0;
   max-width: min-content;
   padding: 10px 30px;
   transition: 200ms;
 }
 
 button:hover {
-  background-color: #0066ff;
+  background-color: #196aff;
   cursor: pointer;
+}
+
+button:active {
+  background-color: #1761e9;
+  cursor: pointer;
+  transform: scale(0.97);
 }
 
 #card-title {
@@ -85,10 +90,25 @@ button:hover {
 #preview-card {
   background-color: #0a2e23;
   width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#card-preview {
+  /* border: red solid; */
+  background-color: white;
+  border-radius: 5px;
+  padding: 0 15px;
+  text-align: center;
+  width: 400px;
 }
 
 #name-card {
   color: white;
+  background-color: #0a2e23;
+  border-radius: 5px;
+  text-align: center;
 }
 
 img {
@@ -97,8 +117,39 @@ img {
 
 #description-card {
   color: white;
+  background-color: #134b3a;
+  border-radius: 5px;
+  padding: 10px;
 }
 
 #attr1-card, #attr2-card, #attr3-card {
+  background-color: rgb(221, 221, 221);
+  border-radius: 5px;
+  display: inline;
+  margin: 10px;
+  padding: 5px 10px;
+  width: fit-content;
+}
+
+#rare-card {
+  background-color: rgb(238, 222, 0);
+  border: solid black 2px;
+  border-radius: 50px;
+  font-weight: 700;
+  margin: 20px auto;
+  padding: 5px 20px;
+  text-align: center;
+  width: 100px;
+}
+
+#trunfo-card {
+  background-color: rgb(0, 52, 223);
+  border: solid black 2px;
+  border-radius: 50px;
   color: white;
+  font-weight: 700;
+  margin: 20px auto;
+  padding: 5px 20px;
+  text-align: center;
+  width: 100px;
 }
