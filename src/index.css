@@ -68,7 +68,7 @@ button {
   color: white;
   max-width: min-content;
   padding: 10px 30px;
-  transition: 200ms;
+  transition: 100ms;
 }
 
 button:hover {
@@ -197,8 +197,32 @@ img {
   width: 100px;
 }
 
-
 #card-list {
   background-color: rgb(243, 243, 243);
   padding: 50px 80px;
+}
+
+#deck-title {
+  font-weight: 700;
+  text-align: center;
+}
+
+#saved-card {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+#delete-button {
+  background-color: #d30000;
+  justify-self: center;
+  margin: 15px;
+}
+
+#delete-button:hover {
+  background-color: #ff3434;
+}
+
+#delete-button:active {
+  background-color: #af1e1e
 }

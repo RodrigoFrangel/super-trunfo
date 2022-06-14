@@ -72,6 +72,15 @@ class App extends React.Component {
     this.resetState();
   }
 
+  //               ↓↓↓ 'target' pega um card lá do array 'savedCards'
+  deleteCard = ({ target }) => {
+    if (target) {
+      this.setState({
+        savedCards: [],
+      });
+    }
+  }
+
   render() {
     const {
       cardName,
@@ -139,17 +148,29 @@ class App extends React.Component {
           </section>
         </section>
         <section id="card-list">
-          {savedCards.map((savedCard, keyProp) => (<Card
-            cardName={ savedCard.cardName }
-            cardImage={ savedCard.cardImage }
-            cardDescription={ savedCard.cardDescription }
-            cardAttr1={ savedCard.cardAttr1 }
-            cardAttr2={ savedCard.cardAttr2 }
-            cardAttr3={ savedCard.cardAttr3 }
-            cardRare={ savedCard.cardRare }
-            cardTrunfo={ savedCard.cardTrunfo }
-            key={ keyProp }
-          />))}
+          <h2 id="deck-title">Cartas do Deck</h2>
+          {savedCards.map((savedCard, keyProp) => (
+            <div id="saved-card" key={ keyProp }>
+              <Card
+                cardName={ savedCard.cardName }
+                cardImage={ savedCard.cardImage }
+                cardDescription={ savedCard.cardDescription }
+                cardAttr1={ savedCard.cardAttr1 }
+                cardAttr2={ savedCard.cardAttr2 }
+                cardAttr3={ savedCard.cardAttr3 }
+                cardRare={ savedCard.cardRare }
+                cardTrunfo={ savedCard.cardTrunfo }
+              />
+              <button
+                type="button"
+                data-testid="delete-button"
+                id="delete-button"
+                onClick={ this.deleteCard }
+              >
+                Excluir
+              </button>
+            </div>
+          ))}
         </section>
       </section>
     );
