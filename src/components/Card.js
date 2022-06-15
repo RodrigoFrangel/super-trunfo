@@ -18,7 +18,7 @@ class Card extends React.Component {
       <div id="card-preview">
         <div id="main-info">
           <h2 data-testid="name-card" id="name-card">{ cardName }</h2>
-          <img src={ cardImage } alt={ cardName } data-testid="image-card" />
+          <img data-testid="image-card" src={ cardImage } alt={ cardName } />
           <p data-testid="description-card" id="description-card">{ cardDescription }</p>
         </div>
         <div id="attributes">
@@ -39,8 +39,7 @@ class Card extends React.Component {
           <p data-testid="rare-card" id="rare-card">{ cardRare }</p>
           {
             cardTrunfo
-              ? <p data-testid="trunfo-card" id="trunfo-card">Super Trunfo</p>
-              : false
+              && <p data-testid="trunfo-card" id="trunfo-card">Super Trunfo</p>
           }
         </div>
       </div>
@@ -56,7 +55,7 @@ Card.propTypes = {
   cardAttr3: PropTypes.string.isRequired,
   cardImage: PropTypes.string.isRequired,
   cardRare: PropTypes.string.isRequired,
-  cardTrunfo: PropTypes.bool.isRequired,
+  cardTrunfo: PropTypes.string.isRequired, // de 'bool' para 'string'
 };
 
 export default Card;

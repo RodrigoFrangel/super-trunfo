@@ -13,28 +13,18 @@ class App extends React.Component {
     cardRare: '',
     cardTrunfo: false,
     hasTrunfo: false,
+    isSaveButtonDisabled: true,
     savedCards: [], // vamos armazenar todas cartas? vamoooss!
   }
 
-  handleChange = (event) => {
-    this.setState({ [event.target.name]: event.target.value });
+  handleChange = ({ target }) => {
+    const { name } = target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    this.setState({ [name]: value }, this.isButtonEnabled);
   }
 
-  // se a função não for chamada aqui, requisito 6 falha :(
-  resetState = () => {
-    this.setState({
-      cardName: '',
-      cardDescription: '',
-      cardImage: '',
-      cardAttr1: '0',
-      cardAttr2: '0',
-      cardAttr3: '0',
-      cardRare: 'normal',
-    });
-  }
-
-  // funçãozinha para salvar as cartas
-  saveTrunfoCards = () => {
+  // mudança de nome pra ficar mais semântico
+  isButtonEnabled = () => {
     const {
       cardName,
       cardDescription,
@@ -42,57 +32,6 @@ class App extends React.Component {
       cardAttr1,
       cardAttr2,
       cardAttr3,
-      cardRare,
-      cardTrunfo,
-      savedCards,
-    } = this.state;
-
-    if (cardTrunfo) {
-      this.setState({ hasTrunfo: true });
-    }
-
-    const newCard = {
-      cardName,
-      cardDescription,
-      cardImage,
-      cardAttr1,
-      cardAttr2,
-      cardAttr3,
-      cardRare,
-      cardTrunfo,
-    };
-
-    const trunfoCardsList = savedCards;
-    trunfoCardsList.push(newCard);
-
-    this.setState({
-      savedCards: trunfoCardsList,
-    });
-
-    this.resetState();
-  }
-
-  //               ↓↓↓ 'target' pega um card lá do array 'savedCards'
-  deleteCard = ({ target }) => {
-    if (target) {
-      this.setState({
-        savedCards: [],
-      });
-    }
-  }
-
-  render() {
-    const {
-      cardName,
-      cardRare,
-      cardTrunfo,
-      cardDescription,
-      cardAttr1,
-      cardAttr2,
-      cardAttr3,
-      cardImage,
-      hasTrunfo,
-      savedCards,
     } = this.state;
 
     const attrInput1 = Number(cardAttr1);
@@ -100,17 +39,52 @@ class App extends React.Component {
     const attrInput3 = Number(cardAttr3);
     const allAttrInputs = (attrInput1 + attrInput2 + attrInput3);
 
-    const buttonDemands = cardName !== ''
-    && cardDescription !== ''
-    && cardImage !== ''
-    && cardRare !== ''
-    && cardAttr1.length > 0
-    && cardAttr2.length > 0
-    && cardAttr3.length > 0
-    && cardAttr1 <= '90' && cardAttr1 >= '0' // precisa ser uma string
-    && cardAttr2 <= '90' && cardAttr2 >= '0' // caso contrário, não passa
-    && cardAttr3 <= '90' && cardAttr3 >= '0' // (provavelmente por causa da validação)
-    && allAttrInputs <= '210';
+    if (
+      cardName !== ''
+      && cardImage !== ''
+      && cardDescription !== ''
+      && cardAttr1 <= '90' && cardAttr1 >= '0'
+      && cardAttr2 <= '90' && cardAttr2 >= '0'
+      && cardAttr3 <= '90' && cardAttr3 >= '0'
+      && allAttrInputs <= '210') {
+      this.setState({ isSaveButtonDisabled: false });
+    } else {
+      this.setState({ isSaveButtonDisabled: true });
+    }
+  }
+
+  // funçãozinha para salvar as cartas
+  saveTrunfoCards = () => {
+    const { cardTrunfo } = this.state;
+    if (cardTrunfo) {
+      this.setState({ hasTrunfo: true });
+    }
+
+    this.setState((prevState) => ({
+      savedCards: [...prevState.savedCards, prevState],
+      cardName: '',
+      cardDescription: '',
+      cardImage: '',
+      cardAttr1: '0',
+      cardAttr2: '0',
+      cardAttr3: '0',
+      cardRare: 'normal',
+      cardTrunfo: false,
+    }));
+  }
+
+  deleteCard = (deckCard) => {
+    const { savedCards } = this.state;
+    const isSuperTrunfo = savedCards.find(() => (deckCard.cardTrunfo));
+    if (isSuperTrunfo.cardTrunfo) {
+      this.setState({ hasTrunfo: false });
+    }
+    const clearDeck = savedCards.filter((card) => (deckCard.cardName !== card.cardName));
+    this.setState({ savedCards: clearDeck });
+  }
+
+  render() {
+    const { savedCards } = this.state;
 
     return (
       <section>
@@ -119,53 +93,37 @@ class App extends React.Component {
           <section id="add-card">
             <h2 id="form-title">Adicionar nova carta</h2>
             <Form
-              cardName={ cardName }
-              cardDescription={ cardDescription }
-              cardAttr1={ cardAttr1 }
-              cardAttr2={ cardAttr2 }
-              cardAttr3={ cardAttr3 }
-              cardImage={ cardImage }
-              cardRare={ cardRare }
-              cardTrunfo={ cardTrunfo }
-              hasTrunfo={ hasTrunfo }
+              { ...this.state } // santo spread operator 🙏
               onInputChange={ this.handleChange }
-              isSaveButtonDisabled={ !buttonDemands } // se não atender as demandas, botão fica desativado
               onSaveButtonClick={ this.saveTrunfoCards }
             />
           </section>
           <section id="preview-card">
             <h2 id="card-title">Pré-visualização</h2>
             <Card
-              cardName={ cardName }
-              cardDescription={ cardDescription }
-              cardAttr1={ cardAttr1 }
-              cardAttr2={ cardAttr2 }
-              cardAttr3={ cardAttr3 }
-              cardImage={ cardImage }
-              cardRare={ cardRare }
-              cardTrunfo={ cardTrunfo }
+              { ...this.state }
             />
           </section>
         </section>
         <section id="card-list">
           <h2 id="deck-title">Cartas do Deck</h2>
-          {savedCards.map((savedCard, keyProp) => (
-            <div id="saved-card" key={ keyProp }>
+          {savedCards.map((card, index) => (
+            <div id="saved-card" key={ `${card.cardName} ${index}` }>
               <Card
-                cardName={ savedCard.cardName }
-                cardImage={ savedCard.cardImage }
-                cardDescription={ savedCard.cardDescription }
-                cardAttr1={ savedCard.cardAttr1 }
-                cardAttr2={ savedCard.cardAttr2 }
-                cardAttr3={ savedCard.cardAttr3 }
-                cardRare={ savedCard.cardRare }
-                cardTrunfo={ savedCard.cardTrunfo }
+                cardName={ card.cardName }
+                cardImage={ card.cardImage }
+                cardDescription={ card.cardDescription }
+                cardAttr1={ card.cardAttr1 }
+                cardAttr2={ card.cardAttr2 }
+                cardAttr3={ card.cardAttr3 }
+                cardRare={ card.cardRare }
+                cardTrunfo={ card.cardTrunfo }
               />
               <button
                 type="button"
                 data-testid="delete-button"
                 id="delete-button"
-                onClick={ this.deleteCard }
+                onClick={ () => this.deleteCard(card) }
               >
                 Excluir
               </button>
