@@ -117,16 +117,26 @@ button:active {
   border-radius: 4px 4px 0 0;
   box-sizing: border-box;
   color: white;
+  height: 43px;
   margin: 0;
+  /* overflow: hidden; */
   padding: 5px;
   text-align: center;
   width: 100%;
 }
 
 img {
+  background-color: rgb(94, 105, 87);
   box-sizing: border-box;
   margin: 0;
-  width: 100%;  
+  height: 300px;
+  overflow: hidden;
+  width: 100%;
+}
+
+/* para esconder o ícone da imagem */
+img[alt] {
+  text-indent: 1000px; 
 }
 
 #description-card {
@@ -134,8 +144,10 @@ img {
   background-color: #134b3a;
   border-radius: 0 0 4px 4px;
   box-sizing: border-box;
-  padding: 7px;
+  height: 43px;
   margin: 0;
+  /* overflow: hidden; */
+  padding: 7px;
   width: 100%;
 }
 
@@ -185,6 +197,7 @@ img {
   border-radius: 5px;
   font-weight: 700;
   padding: 5px 20px;
+  text-transform: capitalize;
   width: 100px;
 }
 
@@ -208,6 +221,11 @@ img {
   text-align: center;
 }
 
+#deck-cards {
+  display: flex;
+  justify-content: space-around;
+}
+
 #saved-card {
   align-items: center;
   display: flex;
@@ -225,5 +243,24 @@ img {
 }
 
 #delete-button:active {
-  background-color: #af1e1e
+  background-color: #221a1a
+}
+
+#filter-container {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+#filter-title {
+  margin: 5px;
+}
+
+#rare-filter {
+  padding: 6px 20px;
+  text-transform: capitalize;
+}
+
+#name-filter {
+  padding: 5px;
+  width: 20%;
 }

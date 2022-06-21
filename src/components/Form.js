@@ -27,7 +27,7 @@ class Form extends React.Component {
             <input
               id="name-input"
               type="text"
-              placeholder="Placeholder"
+              placeholder="Nome da carta"
               data-testid="name-input"
               value={ cardName }
               onChange={ onInputChange }
@@ -103,7 +103,7 @@ class Form extends React.Component {
               id="rare-input"
               value={ cardRare }
               onChange={ onInputChange }
-              name={ cardRare } // será que com isso vai?
+              name="cardRare" // vamos tentar dessa maneira de novo
             >
               <option value="normal">Normal</option>
               <option value="raro">Raro</option>
@@ -120,7 +120,6 @@ class Form extends React.Component {
                     type="checkbox"
                     data-testid="trunfo-input"
                     id="trunfo-input"
-                    // value={ cardTrunfo }
                     onChange={ onInputChange }
                     checked={ cardTrunfo }
                     name="cardTrunfo"
@@ -133,8 +132,9 @@ class Form extends React.Component {
             type="submit"
             data-testid="save-button"
             disabled={ isSaveButtonDisabled }
+            onChange={ onSaveButtonClick } // vamos tentar, né
             onClick={ onSaveButtonClick }
-            id="isSaveButtonDisabled"
+            id="save-button"
           >
             Salvar
           </button>
@@ -152,7 +152,7 @@ Form.propTypes = {
   cardAttr3: PropTypes.string.isRequired,
   cardImage: PropTypes.string.isRequired,
   cardRare: PropTypes.string.isRequired,
-  cardTrunfo: PropTypes.string.isRequired, // de 'bool' para 'string'
+  cardTrunfo: PropTypes.bool.isRequired, // de 'string' para 'bool' again
   hasTrunfo: PropTypes.bool.isRequired,
   isSaveButtonDisabled: PropTypes.bool.isRequired,
   onInputChange: PropTypes.func.isRequired,

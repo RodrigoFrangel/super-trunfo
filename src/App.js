@@ -10,11 +10,13 @@ class App extends React.Component {
     cardAttr1: '0', // precisa ser uma string
     cardAttr2: '0', // para depois ser convertido
     cardAttr3: '0', // em um tipo number
-    cardRare: '',
+    cardRare: 'normal', // pra ficar bonitinho no preview
     cardTrunfo: false,
     hasTrunfo: false,
     isSaveButtonDisabled: true,
     savedCards: [], // vamos armazenar todas cartas? vamoooss!
+    nameFilter: '',
+    rareFilter: '',
   }
 
   handleChange = ({ target }) => {
@@ -53,15 +55,38 @@ class App extends React.Component {
     }
   }
 
-  // funçãozinha para salvar as cartas
+  // funçãozinha para salvar as cartas (esse tive que mudar bastante)
   saveTrunfoCards = () => {
-    const { cardTrunfo } = this.state;
+    const {
+      cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo,
+      savedCards,
+    } = this.state;
+
     if (cardTrunfo) {
       this.setState({ hasTrunfo: true });
     }
 
-    this.setState((prevState) => ({
-      savedCards: [...prevState.savedCards, prevState],
+    const newCard = {
+      cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo,
+    };
+
+    const trunfoCardList = savedCards;
+    trunfoCardList.push(newCard);
+    this.setState({
       cardName: '',
       cardDescription: '',
       cardImage: '',
@@ -70,21 +95,45 @@ class App extends React.Component {
       cardAttr3: '0',
       cardRare: 'normal',
       cardTrunfo: false,
-    }));
+      isSaveButtonDisabled: true,
+      savedCards: trunfoCardList,
+    });
   }
 
+  // pequena refatoração
   deleteCard = (deckCard) => {
-    const { savedCards } = this.state;
-    const isSuperTrunfo = savedCards.find(() => (deckCard.cardTrunfo));
-    if (isSuperTrunfo.cardTrunfo) {
+    const { savedCards, hasTrunfo } = this.state;
+    if (hasTrunfo) {
       this.setState({ hasTrunfo: false });
     }
-    const clearDeck = savedCards.filter((card) => (deckCard.cardName !== card.cardName));
+    const clearDeck = savedCards.filter((card) => (card.cardName !== deckCard));
     this.setState({ savedCards: clearDeck });
   }
 
+  filterCardsByName = ({ target }) => {
+    this.setState({
+      nameFilter: target.value,
+    });
+  }
+
+  filterCardByRarity = ({ target }) => {
+    if (target.value === 'todas') {
+      this.setState({
+        rareFilter: '',
+      });
+    } else {
+      this.setState({
+        rareFilter: target.value,
+      });
+    }
+  }
+
   render() {
-    const { savedCards } = this.state;
+    const {
+      savedCards,
+      nameFilter,
+      rareFilter,
+    } = this.state;
 
     return (
       <section>
@@ -107,28 +156,48 @@ class App extends React.Component {
         </section>
         <section id="card-list">
           <h2 id="deck-title">Cartas do Deck</h2>
-          {savedCards.map((card, index) => (
-            <div id="saved-card" key={ `${card.cardName} ${index}` }>
-              <Card
-                cardName={ card.cardName }
-                cardImage={ card.cardImage }
-                cardDescription={ card.cardDescription }
-                cardAttr1={ card.cardAttr1 }
-                cardAttr2={ card.cardAttr2 }
-                cardAttr3={ card.cardAttr3 }
-                cardRare={ card.cardRare }
-                cardTrunfo={ card.cardTrunfo }
-              />
-              <button
-                type="button"
-                data-testid="delete-button"
-                id="delete-button"
-                onClick={ () => this.deleteCard(card) }
-              >
-                Excluir
-              </button>
-            </div>
-          ))}
+          <div id="filter-container">
+            <h3 id="filter-title">Filtro:</h3>
+            <input
+              type="text"
+              data-testid="name-filter"
+              id="name-filter"
+              placeholder="Nome da carta"
+              onChange={ this.filterCardsByName }
+            />
+            <select
+              data-testid="rare-filter"
+              id="rare-filter"
+              placeholder="Raridade"
+              onChange={ this.filterCardByRarity }
+            >
+              <option>todas</option>
+              <option>normal</option>
+              <option>raro</option>
+              <option>muito raro</option>
+            </select>
+          </div>
+          <div id="deck-cards">
+            {savedCards
+              .filter((card) => card.cardName.includes(nameFilter))
+              .filter((card) => (
+                (rareFilter.length > 0 ? card.cardRare === rareFilter : card)))
+              .map((card) => ( // tirei o index (eu nem sei se tava usando)
+                <div id="saved-card" key={ card.cardName }>
+                  <Card
+                    { ...card } // soca o spread operator de novo
+                  />
+                  <button
+                    type="button"
+                    data-testid="delete-button"
+                    id="delete-button"
+                    onClick={ () => this.deleteCard(card.cardName) }
+                  >
+                    Excluir
+                  </button>
+                </div>
+              ))}
+          </div>
         </section>
       </section>
     );
