@@ -8,7 +8,6 @@ body {
   background-color: #134b3a;
   color: white;
   text-align: center;
-  /* border: solid red; */
 }
 
 #main-content {
@@ -99,10 +98,16 @@ button:active {
 #card-preview {
   background-color: white;
   border-radius: 5px;
-  box-shadow: rgba(0, 0, 0, 0.5) 0 0 8px;
+  box-shadow: rgb(0, 0, 0) 4px 4px 8px;
   padding: 7px;
   text-align: center;
+  transition: 500ms;
   width: 300px;
+}
+
+#card-preview:hover {
+  box-shadow: rgb(0, 0, 0) 0px 0px 0px;
+  transform: scale(1.03);
 }
 
 #main-info {
@@ -119,7 +124,6 @@ button:active {
   color: white;
   height: 43px;
   margin: 0;
-  /* overflow: hidden; */
   padding: 5px;
   text-align: center;
   width: 100%;
@@ -130,6 +134,7 @@ img {
   box-sizing: border-box;
   margin: 0;
   height: 300px;
+  object-fit: cover;
   overflow: hidden;
   width: 100%;
 }
@@ -144,9 +149,9 @@ img[alt] {
   background-color: #134b3a;
   border-radius: 0 0 4px 4px;
   box-sizing: border-box;
-  height: 43px;
+  min-height: 43px;
   margin: 0;
-  /* overflow: hidden; */
+  overflow: hidden;
   padding: 7px;
   width: 100%;
 }
