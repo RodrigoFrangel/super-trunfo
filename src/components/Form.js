@@ -87,6 +87,7 @@ class Form extends React.Component {
             Imagem
             <input
               type="text"
+              placeholder="Insira URL da imagem"
               data-testid="image-input"
               id="image-input"
               value={ cardImage }
@@ -115,7 +116,7 @@ class Form extends React.Component {
             {hasTrunfo ? <p>Você já tem um Super Trunfo em seu baralho</p>
               : (
                 <label htmlFor="trunfo-input">
-                  Super Trybe Trunfo
+                  Super Trunfo
                   <input
                     type="checkbox"
                     data-testid="trunfo-input"

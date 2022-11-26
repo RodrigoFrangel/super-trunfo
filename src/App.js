@@ -7,14 +7,14 @@ class App extends React.Component {
     cardName: '',
     cardDescription: '',
     cardImage: '',
-    cardAttr1: '0', // precisa ser uma string
-    cardAttr2: '0', // para depois ser convertido
-    cardAttr3: '0', // em um tipo number
-    cardRare: 'normal', // pra ficar bonitinho no preview
+    cardAttr1: '0',
+    cardAttr2: '0',
+    cardAttr3: '0',
+    cardRare: 'normal',
     cardTrunfo: false,
     hasTrunfo: false,
     isSaveButtonDisabled: true,
-    savedCards: [], // vamos armazenar todas cartas? vamoooss!
+    savedCards: [],
     nameFilter: '',
     rareFilter: '',
   }
@@ -25,7 +25,6 @@ class App extends React.Component {
     this.setState({ [name]: value }, this.isButtonEnabled);
   }
 
-  // mudança de nome pra ficar mais semântico
   isButtonEnabled = () => {
     const {
       cardName,
@@ -55,7 +54,6 @@ class App extends React.Component {
     }
   }
 
-  // funçãozinha para salvar as cartas (esse tive que mudar bastante)
   saveTrunfoCards = () => {
     const {
       cardName,
@@ -100,7 +98,6 @@ class App extends React.Component {
     });
   }
 
-  // pequena refatoração
   deleteCard = (deckCard) => {
     const { savedCards, hasTrunfo } = this.state;
     if (hasTrunfo) {
@@ -137,12 +134,12 @@ class App extends React.Component {
 
     return (
       <section>
-        <h1 id="header">TRYUNFO</h1>
+        <h1 id="header">SUPER TRUNFO</h1>
         <section id="main-content">
           <section id="add-card">
             <h2 id="form-title">Adicionar nova carta</h2>
             <Form
-              { ...this.state } // santo spread operator 🙏
+              { ...this.state }
               onInputChange={ this.handleChange }
               onSaveButtonClick={ this.saveTrunfoCards }
             />
@@ -182,10 +179,10 @@ class App extends React.Component {
               .filter((card) => card.cardName.includes(nameFilter))
               .filter((card) => (
                 (rareFilter.length > 0 ? card.cardRare === rareFilter : card)))
-              .map((card) => ( // tirei o index (eu nem sei se tava usando)
+              .map((card) => (
                 <div id="saved-card" key={ card.cardName }>
                   <Card
-                    { ...card } // soca o spread operator de novo
+                    { ...card }
                   />
                   <button
                     type="button"
